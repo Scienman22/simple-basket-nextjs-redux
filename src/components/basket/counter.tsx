@@ -6,9 +6,11 @@ import { MinusCircleIcon, PlusCircleIcon, Trash2Icon } from 'lucide-react';
 
 export default function Counter({
     count,
+    maxCountReach=false,
     onCount
 }: {
     count: number
+    maxCountReach: boolean
     onCount: (n:number) => void
 }) {
     return (
@@ -19,7 +21,7 @@ export default function Counter({
 
             <span className="font-medium">{count}</span>
 
-            <Button variant="outline" size="icon" onClick={() => onCount(++count)}>
+            <Button variant="outline" size="icon" onClick={() => onCount(++count)} disabled={maxCountReach}>
                 <PlusCircleIcon className="h-4 w-4" />
             </Button>
         </div>

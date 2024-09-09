@@ -9,9 +9,11 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+
 import { basketItemType } from '@/types/product';
 import { useAppDispatch } from '@/redux/hooks';
 import { addProduct, removeProduct } from '@/redux/slices/basket';
+import { productOnBasket } from '@/redux/slices/products';
 
 export default function BasketItem({
     item
@@ -21,10 +23,12 @@ export default function BasketItem({
     const dispatch = useAppDispatch();
 
     const handleOnCount = React.useCallback((count:number) => {
-        if (count>item.quantity){
+        if (count>item.quantity) {
             dispatch(addProduct(item));
+            dispatch(productOnBasket({id: item.id, do: "added"}));
         } else {
             dispatch(removeProduct(item.id));
+            dispatch(productOnBasket({id: item.id, do: "removed"}));
         }
     }, [dispatch, item])
 
@@ -32,13 +36,13 @@ export default function BasketItem({
         <Card className="w-full">
             <CardHeader className="p-3 pb-0">
                 <CardTitle className="flex items-center justify-between">
-                    {item.name}
+                    {item.title}
 
                     <p className="font-normal">{`$${item.price}`}</p>  
                 </CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-between p-3">
-                <Counter count={item.quantity} onCount={handleOnCount} />
+                <Counter count={item.quantity} maxCountReach={item.stock === item.quantity} onCount={handleOnCount} />
                 <div className="text-right">{`$${item.price*item.quantity}`}</div>
             </CardContent>
         </Card>

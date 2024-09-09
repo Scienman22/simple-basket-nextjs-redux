@@ -8,6 +8,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { basket } from "@/redux/slices/basket";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 
 export default function BasketList() {
@@ -18,7 +19,8 @@ export default function BasketList() {
     }
 
     return (
-        <div className="flex-1 whitespace-pre-wrap w-full space-y-2">
+        <ScrollArea className="w-full" style={{ height: `calc(100vh - 250px)`}}>
+            <div className="flex-1 whitespace-pre-wrap space-y-2">
             {
                 basketItemsList.length ? basketItemsList.map((basketItem: basketItemType) => (
                     <BasketItem key={basketItem.id} item={basketItem} />
@@ -32,6 +34,8 @@ export default function BasketList() {
                     </Alert>
                 )
             }
-        </div>
+            </div>
+            <ScrollBar />
+        </ScrollArea>
     )
 }

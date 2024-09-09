@@ -1,7 +1,11 @@
 export interface productType {
-    id: number, 
-    name: string, 
+    id: number
+    title: string
+    description: string
+    category: string
+    stock: number
     price: number
+    thumbnail: string
 }
 
 export interface basketItemType extends productType {

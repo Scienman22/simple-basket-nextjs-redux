@@ -12,7 +12,7 @@ export default function BasketTotal() {
         <div className="flex justify-between w-full border-t-2">
             <span className="font-semibold">{`Total`}</span>
 
-            <span className="font-light text-lg">{`$${_.sumBy(basketItemsList, item => item.price*item.quantity)}`}</span>
+            <span className="font-light text-lg">{`$${ _.round(_.sumBy(basketItemsList, item => item.price*item.quantity), 2) }`}</span>
         </div>
     )
 }
