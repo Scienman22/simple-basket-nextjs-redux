@@ -1,6 +1,8 @@
 "use client";
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
+import Image from 'next/image';
 import {
     Card,
     CardFooter,
@@ -13,7 +15,6 @@ import { BackpackIcon } from "@radix-ui/react-icons";
 import { productType } from '@/types/product';
 import { useAppDispatch } from '@/redux/hooks';
 import { addProduct } from '@/redux/slices/basket';
-import Image from 'next/image';
 import { productOnBasket } from '@/redux/slices/products';
 
 export default function ProductItem({
@@ -21,12 +22,17 @@ export default function ProductItem({
 } : {
     item: productType
 }) {
+    const router = useRouter();
     const dispatch = useAppDispatch();
 
     const onAddToBasket = React.useCallback(() => {
         dispatch(addProduct(item));
         dispatch(productOnBasket({id: item.id, do: "added"}));
     }, [dispatch, item])
+
+    const handleSelectProduct = React.useCallback(() => {
+        router.push(`/product/${item.id}`)
+    }, [item.id, router])
 
     return (
         <Card className="w-full">
@@ -37,7 +43,7 @@ export default function ProductItem({
                             <Image src={item.thumbnail} width={100} height={100} className="aspect-square h-full w-full" alt={''} />
                         </span>
                         <div>
-                            <p className="text-sm font-medium leading-none">{item.title}</p>
+                            <p onClick={() => handleSelectProduct()} className="text-sm font-medium leading-none cursor-pointer">{item.title}</p>
                             <p className="text-sm text-muted-foreground">{item.description}</p>
                         </div>
                     </div>

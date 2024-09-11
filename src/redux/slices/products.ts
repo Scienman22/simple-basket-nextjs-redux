@@ -1,5 +1,5 @@
 import { RootState } from "@/redux/store";
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { productType } from "@/types/product";
@@ -8,6 +8,21 @@ const initialState: {isProductsLoading:boolean, productsList:productType[]} = {
     isProductsLoading: false,
     productsList: []
 };
+
+export const fetchProductItem = createAsyncThunk(
+    'products/productsList',
+    async (productId: string, {rejectWithValue}) => {
+        try {
+            const response = await fetch(`https://dummyjson.com/products/${productId}`, {
+                cache: "default"
+            }).then (res => res.json());
+        
+            return {status: true, data: response, message: ""};
+        } catch (error) {
+            return rejectWithValue({status: false, data: error, message: "Something went wrong fetching product."});
+        }
+    }
+)
 
 export const productsSlice = createSlice({
     name: 'products',

@@ -21,8 +21,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
     children,
+    modal
 }: Readonly<{
     children: React.ReactNode;
+    modal: React.ReactNode;
 }>) {
     return (
 		<html lang="en">
@@ -31,6 +33,7 @@ export default function RootLayout({
 			>
 				<StoreProvider>
                     <h1 className="text-2xl font-extrabold mx-8 sm:mx-20 mt-4 mb-0">{`Simple Basket`}</h1>
+                    {modal}
 					{children}
 				</StoreProvider>
 			</body>
