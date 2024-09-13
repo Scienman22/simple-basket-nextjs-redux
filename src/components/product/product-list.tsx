@@ -3,7 +3,10 @@ import React from 'react';
 import _ from 'lodash';
 
 import ProductItem from '@/components/product/product-item';
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 
 import { productType } from '@/types/product';
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -53,9 +56,17 @@ export default function ProductList({
         <ScrollArea style={{ height: `calc(100vh - 200px)`}}>
             <div className="flex-1 whitespace-pre-wrap space-y-2">
             {
-                filteredProductsList.map((product: productType) => (
+                filteredProductsList.length ? filteredProductsList.map((product: productType) => (
                     <ProductItem key={product.id} item={product} />
-                ))
+                )) : (
+                    <Alert>
+                        <ExclamationTriangleIcon className="h-4 w-4" />
+                        <AlertTitle>{`No product has been found!`}</AlertTitle>
+                        <AlertDescription>
+                            {`No available product from the selected category or search.`}
+                        </AlertDescription>
+                    </Alert>
+                )
             }
             </div>
             <ScrollBar />
