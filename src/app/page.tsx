@@ -1,50 +1,40 @@
 import BasketList from "@/components/basket/basket-list";
 import BasketTotal from "@/components/basket/basket-total";
 import ProductList from "@/components/product/product-list";
-
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable"
+import PriceSorting from "@/components/sorters/price-sorting";
 
 const initLimit = 10;
 
 const fetchProducts = async () => {
-  const response = await fetch(`https://dummyjson.com/products?limit=${initLimit}`, {
-    cache: "default"
-  }).then (res => res.json());
+	const response = await fetch(`https://dummyjson.com/products?limit=${initLimit}`, {
+		cache: "default"
+	}).then (res => res.json());
 
-  return response;
+	return response;
 }
 
 export default async function Home() {
-  const products  = await fetchProducts();
+	const products  = await fetchProducts();
 
-  return (
-    <div className="grid grid-rows-[1fr] items-center justify-items-center px-8 sm:px-20 sm:pt-8 font-[family-name:var(--font-geist-sans)]">
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="rounded-lg border h-full w-full"
-      >
-        <ResizablePanel defaultSize={60}>
-          <div className="flex flex-col h-full items-start p-6 gap-2">
-            <span className="font-semibold">{`Products`}</span>
+	return (
+		<div className="flex space-x-4 font-[family-name:var(--font-geist-sans)]">
+			<div className="w-2/3 bg-white p-4 space-y-4 rounded-2xl shadow-md" style={{ height: `calc(100vh - 100px)`}}>
+				<div className="flex flex-col h-full items-start gap-2">
+					<PriceSorting />
 
-            <ProductList data={products} />
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={40}>
-          <div className="flex flex-col h-full items-start p-6 gap-2">
-            <span className="font-semibold">{`Basket`}</span>
+					<ProductList data={products} />
+				</div>
+			</div>
 
-            <BasketList />
+			<div className="w-1/3 bg-white p-4 space-y-4 rounded-2xl shadow-md" style={{ height: `calc(100vh - 100px)`}}>
+				<div className="flex flex-col h-full items-start gap-2">
+					<span className="font-semibold">{`Basket`}</span>
 
-            <BasketTotal />
-          </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
-    </div>
-  );
+					<BasketList />
+
+					<BasketTotal />
+				</div>
+			</div>
+		</div>
+	);
 }

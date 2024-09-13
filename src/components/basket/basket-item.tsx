@@ -35,15 +35,15 @@ export default function BasketItem({
     return (
         <Card className="w-full">
             <CardHeader className="p-3 pb-0">
-                <CardTitle className="flex items-center justify-between">
+                <CardTitle className="flex items-center justify-between font-normal text-sm">
                     {item.title}
 
-                    <p className="font-normal">{`$${item.price}`}</p>  
+                    {/* <p className="font-normal">{`$${item.price}`}</p>   */}
                 </CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-between p-3">
                 <Counter count={item.quantity} maxCountReach={item.stock === item.quantity} onCount={handleOnCount} />
-                <div className="text-right">{`$${item.price*item.quantity}`}</div>
+                <div className="text-right">{`$${ (item.price*item.quantity).toFixed(2) }`}</div>
             </CardContent>
         </Card>
     )

@@ -1,12 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import products from '@/redux/slices/products'
 import basket from './slices/basket'
+import filterByReducer from './slices/filters'
+import sortByReducer from './slices/sorter'
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
             productsList: products,
-            basketItemsList: basket
+            basketItemsList: basket,
+            sortBy: sortByReducer,
+            filteredBy: filterByReducer
         }
     })
 }

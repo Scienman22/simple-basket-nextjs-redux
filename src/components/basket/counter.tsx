@@ -14,15 +14,15 @@ export default function Counter({
     onCount: (n:number) => void
 }) {
     return (
-        <div className="flex items-center justify-between min-w-[130px]">
+        <div className="flex items-center justify-between min-w-[120px]">
             <Button variant="outline" size="icon" onClick={() => onCount(--count)}>
-                { (count===1) ? <Trash2Icon className="h-4 w-4" /> : <MinusCircleIcon className="h-4 w-4" /> }
+                { (count===1) ? <Trash2Icon className="h-3 w-3" /> : <MinusCircleIcon className="h-3 w-3" /> }
             </Button>
 
             <span className="font-medium">{count}</span>
 
             <Button variant="outline" size="icon" onClick={() => onCount(++count)} disabled={maxCountReach}>
-                <PlusCircleIcon className="h-4 w-4" />
+                <PlusCircleIcon className="h-3 w-3" />
             </Button>
         </div>
     )
