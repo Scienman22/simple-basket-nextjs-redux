@@ -1,5 +1,5 @@
 "use client";
-import { SearchIcon, XCircleIcon, XIcon } from "lucide-react";
+import { SearchIcon, XCircleIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
