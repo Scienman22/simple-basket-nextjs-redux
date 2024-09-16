@@ -5,9 +5,10 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { productType, basketItemType } from "@/types/product";
 
-const initialState: {isBasketLoading:boolean, basketItemsList:basketItemType[]} = {
+const initialState: {isBasketLoading:boolean, basketItemsList:basketItemType[], basketCount:number} = {
     isBasketLoading: false,
-    basketItemsList: []
+    basketItemsList: [],
+    basketCount: 0
 };
 
 export const basketSlice = createSlice({
@@ -27,6 +28,8 @@ export const basketSlice = createSlice({
             } else {
                 state.basketItemsList.push({...action.payload, quantity: 1});
             }
+
+            state.basketCount++
         },
         removeProduct: (state, action: PayloadAction<number>) => {
             const existingProduct:basketItemType|undefined = _.find(state.basketItemsList, item => item.id === action.payload);
@@ -41,6 +44,8 @@ export const basketSlice = createSlice({
             } else {
                 state.basketItemsList = _.filter(state.basketItemsList, item => item.id !== action.payload);
             }
+
+            state.basketCount--
         }
     }
 })
